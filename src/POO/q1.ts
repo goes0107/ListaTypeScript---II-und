@@ -3,26 +3,26 @@
 //  Métodos: trocaCor e mostraCor
 
 class Bola {
-    cor: string;
-    circunferencia: number;
-    material: string;
+    cor: string
+    circunferencia: number
+    material: string
 
     constructor(cor: string, circunferencia: number, material: string) {
-        this.cor = cor;
-        this.circunferencia = circunferencia;
-        this.material = material;
+        this.cor = cor
+        this.circunferencia = circunferencia
+        this.material = material
     }
 
     trocaCor(novaCor: string): void {
-        this.cor = novaCor;
+        this.cor = novaCor
     }
 
     mostraCor(): string {
-        return this.cor;
+        return this.cor
     }
 }
 
-const minhaBola = new Bola("vermelha", 30, "borracha");
-console.log(minhaBola.mostraCor());
-minhaBola.trocaCor("azul");
+const minhaBola = new Bola("vermelha", 30, "borracha")
+console.log(minhaBola.mostraCor())
+minhaBola.trocaCor("azul")
 console.log(minhaBola.mostraCor())
