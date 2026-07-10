@@ -8,90 +8,91 @@
 // objeto para imprimir uma ficha técnica detalhada de cada item do almoxarifado.
 
 
+export function questao27POO():void{
+    class Equipamento {
+        private tombamento: number
+        private descricao: string
 
-class Equipamento {
-    private tombamento: number
-    private descricao: string
+        constructor(tombamento: number, descricao: string) {
+            this.tombamento = tombamento
+            this.descricao = descricao
+        }
 
-    constructor(tombamento: number, descricao: string) {
-        this.tombamento = tombamento
-        this.descricao = descricao
+        exibir(): string {
+            return `Tombamento: ${this.tombamento}\nDescrição: ${this.descricao}`
+        }
     }
 
-    exibir(): string {
-        return `Tombamento: ${this.tombamento}\nDescrição: ${this.descricao}`
-    }
-}
+    class Computador extends Equipamento {
+        private memoriaRAM: number
 
-class Computador extends Equipamento {
-    private memoriaRAM: number
+        constructor(tombamento: number, descricao: string, memoriaRAM: number) {
+            super(tombamento, descricao)
+            this.memoriaRAM = memoriaRAM
+        }
 
-    constructor(tombamento: number, descricao: string, memoriaRAM: number) {
-        super(tombamento, descricao)
-        this.memoriaRAM = memoriaRAM
-    }
-
-    exibir(): string {
-        return `${super.exibir()}\nMemória RAM: ${this.memoriaRAM} GB`
-    }
-}
-
-class Roteador extends Equipamento {
-    private portas: number
-
-    constructor(tombamento: number, descricao: string, portas: number) {
-        super(tombamento, descricao)
-        this.portas = portas
+        exibir(): string {
+            return `${super.exibir()}\nMemória RAM: ${this.memoriaRAM} GB`
+        }
     }
 
-    exibir(): string {
-        return `${super.exibir()}\nPortas: ${this.portas}`
-    }
-}
+    class Roteador extends Equipamento {
+        private portas: number
 
-let equipamentos: Equipamento[] = []
+        constructor(tombamento: number, descricao: string, portas: number) {
+            super(tombamento, descricao)
+            this.portas = portas
+        }
 
-let resposta = "s"
-
-while (resposta != "n") {
-
-    let tipo = Number(prompt("Tipo (1-Computador / 2-Roteador): "))
-
-    let tombamento: number = Number(prompt("Número do tombamento: "))
-    let descricao: string = String(prompt("Descrição: "))
-
-    if (tombamento <= 0 || descricao == "") {
-        console.log("Dados inválidos!")
-        continue
+        exibir(): string {
+            return `${super.exibir()}\nPortas: ${this.portas}`
+        }
     }
 
-    if (tipo == 1) {
-        let memoria = Number(prompt("Memória RAM (GB): "))
+    let equipamentos: Equipamento[] = []
 
-        if (memoria <= 0) {
-            console.log("Valor inválido!")
+    let resposta = "s"
+
+    while (resposta != "n") {
+
+        let tipo = Number(prompt("Tipo (1-Computador / 2-Roteador): "))
+
+        let tombamento: number = Number(prompt("Número do tombamento: "))
+        let descricao: string = String(prompt("Descrição: "))
+
+        if (tombamento <= 0 || descricao == "") {
+            console.log("Dados inválidos!")
             continue
         }
 
-        equipamentos.push(new Computador(tombamento, descricao, memoria))
-    }
+        if (tipo == 1) {
+            let memoria = Number(prompt("Memória RAM (GB): "))
 
-    if (tipo == 2) {
-        let portas = Number(prompt("Quantidade de portas: "))
+            if (memoria <= 0) {
+                console.log("Valor inválido!")
+                continue
+            }
 
-        if (portas <= 0) {
-            console.log("Valor inválido!")
-            continue
+            equipamentos.push(new Computador(tombamento, descricao, memoria))
         }
 
-        equipamentos.push(new Roteador(tombamento, descricao, portas))
+        if (tipo == 2) {
+            let portas = Number(prompt("Quantidade de portas: "))
+
+            if (portas <= 0) {
+                console.log("Valor inválido!")
+                continue
+            }
+
+            equipamentos.push(new Roteador(tombamento, descricao, portas))
+        }
+
+        resposta = String(prompt("Deseja cadastrar outro equipamento? (s/n): ")).toLowerCase()
     }
 
-    resposta = String(prompt("Deseja cadastrar outro equipamento? (s/n): ")).toLowerCase()
-}
+    console.log("INVENTÁRIO")
 
-console.log("INVENTÁRIO")
-
-for (let equipamento of equipamentos) {
-    console.log(equipamento.exibir())
+    for (let equipamento of equipamentos) {
+        console.log(equipamento.exibir())
+    }
 }

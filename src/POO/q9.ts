@@ -3,39 +3,41 @@
 // um método que calcule o valor total em estoque (preço × quantidade) e exiba essa informação para
 // cada produto.
 
-class Produto {
-    nome: string
-    preco: number
-    quantidade: number
+export function questao9POO():void{
+    class Produto {
+        nome: string
+        preco: number
+        quantidade: number
 
-    constructor(nome: string, preco: number, quantidade: number) {
-        this.nome = nome
-        this.preco = preco
-        this.quantidade = quantidade
+        constructor(nome: string, preco: number, quantidade: number) {
+            this.nome = nome
+            this.preco = preco
+            this.quantidade = quantidade
+        }
+
+        calcularValorTotal(): number {
+            return this.preco * this.quantidade
+        }
     }
 
-    calcularValorTotal(): number {
-        return this.preco * this.quantidade
+    let produtos: Produto[] = []
+
+    let resposta: string = ''
+
+    while (resposta.toLowerCase() !== 'n') {
+        let nome: string = String(prompt('Insira o nome do produto: '))
+        let preco: number = Number(prompt('Insira o preço do produto: '))
+        let quantidade: number = Number(prompt('Insira a quantidade em estoque: '))
+
+        let newProduto: Produto = new Produto(nome, preco, quantidade)
+        produtos.push(newProduto)
+
+        resposta = String(prompt('Deseja cadastrar outro produto? (s/n): ')).toLowerCase()
     }
-}
 
-let produtos: Produto[] = []
-
-let resposta: string = ''
-
-while (resposta.toLowerCase() !== 'n') {
-    let nome: string = String(prompt('Insira o nome do produto: '))
-    let preco: number = Number(prompt('Insira o preço do produto: '))
-    let quantidade: number = Number(prompt('Insira a quantidade em estoque: '))
-
-    let newProduto: Produto = new Produto(nome, preco, quantidade)
-    produtos.push(newProduto)
-
-    resposta = String(prompt('Deseja cadastrar outro produto? (s/n): ')).toLowerCase()
-}
-
-console.log('Resumo dos produtos cadastrados:')
-for (let produto of produtos) {
-    let valorTotal: number = produto.calcularValorTotal()
-    console.log(`Produto: ${produto.nome}, Preço: ${produto.preco}, Quantidade: ${produto.quantidade}, Valor total em estoque: ${valorTotal}`)
+    console.log('Resumo dos produtos cadastrados:')
+    for (let produto of produtos) {
+        let valorTotal: number = produto.calcularValorTotal()
+        console.log(`Produto: ${produto.nome}, Preço: ${produto.preco}, Quantidade: ${produto.quantidade}, Valor total em estoque: ${valorTotal}`)
+    }
 }

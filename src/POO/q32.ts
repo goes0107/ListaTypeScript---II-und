@@ -11,76 +11,77 @@
 // • Loop de rodadas com condição de parada por comando do usuário.
 // • Exibição final com classificação e destaque para campeões.
 
+export function questao32POO():void{
+    class Jogador {
+        private nickname: string
+        protected pontuacao: number
 
-class Jogador {
-    private nickname: string
-    protected pontuacao: number
+        constructor(nickname: string) {
+            this.nickname = nickname
+            this.pontuacao = 0
+        }
 
-    constructor(nickname: string) {
-        this.nickname = nickname
-        this.pontuacao = 0
-    }
+        getNickname(): string {
+            return this.nickname
+        }
 
-    getNickname(): string {
-        return this.nickname
-    }
+        getPontuacao(): number {
+            return this.pontuacao
+        }
 
-    getPontuacao(): number {
-        return this.pontuacao
-    }
-
-    realizarMissao() {
-        this.pontuacao += 100
-    }
-}
-
-class JogadorPremium extends Jogador {
-    realizarMissao() {
-        this.pontuacao += 150
-    }
-}
-
-let jogadores: Jogador[] = []
-
-let resposta = "s"
-
-while (resposta != "n") {
-
-    let tipo = Number(prompt("Tipo (1-Comum / 2-Premium): "))
-    let nickname: string = String(prompt("Nickname: "))
-
-    if (tipo == 1) {
-        jogadores.push(new Jogador(nickname))
-    }
-
-    if (tipo == 2) {
-        jogadores.push(new JogadorPremium(nickname))
-    }
-
-    resposta = String(prompt("Cadastrar outro jogador? (s/n): ")).toLowerCase()
-}
-
-resposta = "s"
-
-while (resposta != "n") {
-
-    let nome = prompt("Quem realizou a missão? ")
-
-    for (let jogador of jogadores) {
-        if (jogador.getNickname() == nome) {
-            jogador.realizarMissao()
+        realizarMissao() {
+            this.pontuacao += 100
         }
     }
 
-    resposta = String(prompt("Continuar outra rodada? (s/n): ")).toLowerCase()
-}
+    class JogadorPremium extends Jogador {
+        realizarMissao() {
+            this.pontuacao += 150
+        }
+    }
 
-console.log("CLASSIFICAÇÃO")
+    let jogadores: Jogador[] = []
 
-for (let jogador of jogadores) {
-    console.log(`${jogador.getNickname()} - ${jogador.getPontuacao()} pontos`)
+    let resposta = "s"
 
-    if (jogador.getPontuacao() > 1000) {
-        console.log("Campeão!")
+    while (resposta != "n") {
+
+        let tipo = Number(prompt("Tipo (1-Comum / 2-Premium): "))
+        let nickname: string = String(prompt("Nickname: "))
+
+        if (tipo == 1) {
+            jogadores.push(new Jogador(nickname))
+        }
+
+        if (tipo == 2) {
+            jogadores.push(new JogadorPremium(nickname))
+        }
+
+        resposta = String(prompt("Cadastrar outro jogador? (s/n): ")).toLowerCase()
+    }
+
+    resposta = "s"
+
+    while (resposta != "n") {
+
+        let nome = prompt("Quem realizou a missão? ")
+
+        for (let jogador of jogadores) {
+            if (jogador.getNickname() == nome) {
+                jogador.realizarMissao()
+            }
+        }
+
+        resposta = String(prompt("Continuar outra rodada? (s/n): ")).toLowerCase()
+    }
+
+    console.log("CLASSIFICAÇÃO")
+
+    for (let jogador of jogadores) {
+        console.log(`${jogador.getNickname()} - ${jogador.getPontuacao()} pontos`)
+
+        if (jogador.getPontuacao() > 1000) {
+            console.log("Campeão!")
+        }
     }
 }

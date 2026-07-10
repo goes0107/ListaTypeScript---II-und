@@ -3,49 +3,51 @@
 // publicação e disponibilidade (boolean). O programa deve permitir cadastrar até 15 livros via teclado,
 // listar todos os disponíveis e registrar o empréstimo de um livro pesquisado pelo título.
 
-class Livro {
-    titulo: string
-    autor: string
-    anoPublicacao: number
-    disponivel: boolean
+export function questao14POO():void{
+    class Livro {
+        titulo: string
+        autor: string
+        anoPublicacao: number
+        disponivel: boolean
 
-    constructor(titulo: string, autor: string, anoPublicacao: number, disponivel: boolean) {
-        this.titulo = titulo
-        this.autor = autor
-        this.anoPublicacao = anoPublicacao
-        this.disponivel = disponivel
+        constructor(titulo: string, autor: string, anoPublicacao: number, disponivel: boolean) {
+            this.titulo = titulo
+            this.autor = autor
+            this.anoPublicacao = anoPublicacao
+            this.disponivel = disponivel
+        }
     }
-}
 
-let livros: Livro[] = []
+    let livros: Livro[] = []
 
-for (let i = 0; i < 15; i++) {
-    let titulo: string = String(prompt('Insira o título do livro: '))
-    let autor: string = String(prompt('Insira o autor do livro: '))
-    let anoPublicacao: number = Number(prompt('Insira o ano de publicação do livro: '))
-    let disponivel: boolean = Boolean(prompt('O livro está disponível? (true/false): '))
+    for (let i = 0; i < 15; i++) {
+        let titulo: string = String(prompt('Insira o título do livro: '))
+        let autor: string = String(prompt('Insira o autor do livro: '))
+        let anoPublicacao: number = Number(prompt('Insira o ano de publicação do livro: '))
+        let disponivel: boolean = Boolean(prompt('O livro está disponível? (true/false): '))
 
-    let newLivro: Livro = new Livro(titulo, autor, anoPublicacao, disponivel)
-    livros.push(newLivro)
-}
+        let newLivro: Livro = new Livro(titulo, autor, anoPublicacao, disponivel)
+        livros.push(newLivro)
+    }
 
-let tituloPesquisa: string = String(prompt('Insira o título do livro que deseja emprestar: '))
-let livroEncontrado: Livro | undefined = livros.find(livro => livro.titulo.toLowerCase() === tituloPesquisa.toLowerCase())
+    let tituloPesquisa: string = String(prompt('Insira o título do livro que deseja emprestar: '))
+    let livroEncontrado: Livro | undefined = livros.find(livro => livro.titulo.toLowerCase() === tituloPesquisa.toLowerCase())
 
-if (livroEncontrado) {
-    if (livroEncontrado.disponivel) {
-        livroEncontrado.disponivel = false
-        console.log(`O livro "${livroEncontrado.titulo}" foi emprestado com sucesso.`)
+    if (livroEncontrado) {
+        if (livroEncontrado.disponivel) {
+            livroEncontrado.disponivel = false
+            console.log(`O livro "${livroEncontrado.titulo}" foi emprestado com sucesso.`)
+        } else {
+            console.log(`O livro "${livroEncontrado.titulo}" não está disponível para empréstimo.`)
+        }
     } else {
-        console.log(`O livro "${livroEncontrado.titulo}" não está disponível para empréstimo.`)
+        console.log(`O livro com título "${tituloPesquisa}" não foi encontrado.`)
     }
-} else {
-    console.log(`O livro com título "${tituloPesquisa}" não foi encontrado.`)
-}
 
-console.log('Livros disponíveis:')
-for (let livro of livros) {
-    if (livro.disponivel) {
-        console.log(`Título: ${livro.titulo}, Autor: ${livro.autor}, Ano de Publicação: ${livro.anoPublicacao}`)
+    console.log('Livros disponíveis:')
+    for (let livro of livros) {
+        if (livro.disponivel) {
+            console.log(`Título: ${livro.titulo}, Autor: ${livro.autor}, Ano de Publicação: ${livro.anoPublicacao}`)
+        }
     }
 }

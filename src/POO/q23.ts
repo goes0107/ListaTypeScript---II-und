@@ -7,84 +7,86 @@
 // simula a passagem do caixa, aplicando as regras de desconto conforme o tipo do produto e exibindo o
 // valor final que o cliente pagará.
 
-class Produto {
-    private codigo: string
-    private nome: string
-    private precoCusto: number
+export function questao23POO():void{
+    class Produto {
+        private codigo: string
+        private nome: string
+        private precoCusto: number
 
-    constructor(codigo: string, nome: string, precoCusto: number) {
-        this.codigo = codigo
-        this.nome = nome
-        this.precoCusto = precoCusto
-    }
-
-    public getCodigo(): string {
-        return this.codigo
-    }
-
-    public getNome(): string {
-        return this.nome
-    }
-
-    public getPrecoCusto(): number {
-        return this.precoCusto
-    }
-
-    public calcularPrecoFinal(): number {
-        return this.precoCusto
-    }
-
-}
-
-class ProdutoPerecivel extends Produto {
-    private dataValidade: Date
-
-    constructor(codigo: string, nome: string, precoCusto: number, dataValidade: Date) {
-        super(codigo, nome, precoCusto)
-        this.dataValidade = dataValidade
-    }
-
-    public calcularPrecoFinal(): number {
-        const hoje: Date = new Date()
-        if (this.dataValidade.toDateString() === hoje.toDateString()) {
-            return this.getPrecoCusto() * 0.7
+        constructor(codigo: string, nome: string, precoCusto: number) {
+            this.codigo = codigo
+            this.nome = nome
+            this.precoCusto = precoCusto
         }
-        return this.getPrecoCusto()
-    }
-}
 
-class ProdutoNaoPerecivel extends Produto {
-    constructor(codigo: string, nome: string, precoCusto: number) {
-        super(codigo, nome, precoCusto)
-    }
+        public getCodigo(): string {
+            return this.codigo
+        }
 
-    public calcularPrecoFinal(): number {
-        return this.getPrecoCusto()
-    }
+        public getNome(): string {
+            return this.nome
+        }
 
-}
+        public getPrecoCusto(): number {
+            return this.precoCusto
+        }
 
-let estoque: Produto[] = []
+        public calcularPrecoFinal(): number {
+            return this.precoCusto
+        }
 
-let resposta: string = ''
-
-while (resposta.toLowerCase() !== 'n') {
-    let tipoProduto: number = Number(prompt('Digite o tipo de produto (1-perecível/2-não perecível): '))
-    let codigo: string = String(prompt('Digite o código do produto: '))
-    let nome: string = String(prompt('Digite o nome do produto: '))
-    let precoCusto: number = Number(prompt('Digite o preço de custo do produto: '))
-
-    if (tipoProduto === 1) {
-        let dataValidade: Date = new Date(String(prompt('Digite a data de validade (DD-MM-AAAA): ')))
-        estoque.push(new ProdutoPerecivel(codigo, nome, precoCusto, dataValidade))
-    } else if (tipoProduto === 2) {
-        estoque.push(new ProdutoNaoPerecivel(codigo, nome, precoCusto))
     }
 
-    resposta = String(prompt('Deseja adicionar mais produtos? (s/n): ')).toLowerCase()
-}
+    class ProdutoPerecivel extends Produto {
+        private dataValidade: Date
 
-console.log('Relatório de Produtos:')
-for (let produto of estoque) {
-    console.log(`Código: ${produto.getCodigo()}, Nome: ${produto.getNome()}, Preço Final: R$ ${produto.calcularPrecoFinal().toFixed(2)}`)
+        constructor(codigo: string, nome: string, precoCusto: number, dataValidade: Date) {
+            super(codigo, nome, precoCusto)
+            this.dataValidade = dataValidade
+        }
+
+        public calcularPrecoFinal(): number {
+            const hoje: Date = new Date()
+            if (this.dataValidade.toDateString() === hoje.toDateString()) {
+                return this.getPrecoCusto() * 0.7
+            }
+            return this.getPrecoCusto()
+        }
+    }
+
+    class ProdutoNaoPerecivel extends Produto {
+        constructor(codigo: string, nome: string, precoCusto: number) {
+            super(codigo, nome, precoCusto)
+        }
+
+        public calcularPrecoFinal(): number {
+            return this.getPrecoCusto()
+        }
+
+    }
+
+    let estoque: Produto[] = []
+
+    let resposta: string = ''
+
+    while (resposta.toLowerCase() !== 'n') {
+        let tipoProduto: number = Number(prompt('Digite o tipo de produto (1-perecível/2-não perecível): '))
+        let codigo: string = String(prompt('Digite o código do produto: '))
+        let nome: string = String(prompt('Digite o nome do produto: '))
+        let precoCusto: number = Number(prompt('Digite o preço de custo do produto: '))
+
+        if (tipoProduto === 1) {
+            let dataValidade: Date = new Date(String(prompt('Digite a data de validade (DD-MM-AAAA): ')))
+            estoque.push(new ProdutoPerecivel(codigo, nome, precoCusto, dataValidade))
+        } else if (tipoProduto === 2) {
+            estoque.push(new ProdutoNaoPerecivel(codigo, nome, precoCusto))
+        }
+
+        resposta = String(prompt('Deseja adicionar mais produtos? (s/n): ')).toLowerCase()
+    }
+
+    console.log('Relatório de Produtos:')
+    for (let produto of estoque) {
+        console.log(`Código: ${produto.getCodigo()}, Nome: ${produto.getNome()}, Preço Final: R$ ${produto.calcularPrecoFinal().toFixed(2)}`)
+    }
 }
